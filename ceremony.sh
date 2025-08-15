@@ -46,4 +46,4 @@ fi
 
 # 8️⃣ Contribute to the Ceremony
 echo "🎉 Authentication successful! Starting contribution..."
-screen -S ceremony phase2cli contribute -c ethstorage-v1-trusted-setup-ceremony
+screen -S ceremony bash -c "phase2cli contribute -c ethstorage-v1-trusted-setup-ceremony; exec bash"
