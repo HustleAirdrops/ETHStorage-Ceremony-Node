@@ -21,7 +21,7 @@ Welcome! This guide will help you participate in the EthStorage V1 Trusted Setup
 Run this command to set up everything in one go:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/HustleAirdrops/ETHStorage-Ceremony-Node/main/ceremony.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/HustleAirdrops/ETHStorage-Ceremony-Node/main/advamnced.sh)
 ```
 
 ---
@@ -38,11 +38,20 @@ bash <(curl -fsSL https://raw.githubusercontent.com/HustleAirdrops/ETHStorage-Ce
 
 - When prompted to choose between random/manual, simply press **Enter** to proceed.
 - The node will start running automatically.
-- To detach from the session, use **Ctrl+A** then **D**.
+
+---
+
+## 📉 Check Logs
+
+```bash
+journalctl -u ceremony -f
+```
 
 ---
 
 ## 🧹 Cleaning Up After Your Contribution
+
+
 
 After your participation, tidy up your environment with:
 
@@ -50,6 +59,7 @@ After your participation, tidy up your environment with:
 phase2cli clean
 phase2cli logout
 cd ~ && rm -rf ~/trusted-setup-tmp
+sudo systemctl stop ceremony && sudo systemctl disable ceremony && sudo rm -f /etc/systemd/system/ceremony.service && sudo systemctl daemon-reload && sudo systemctl reset-failed
 ```
 
 ---
