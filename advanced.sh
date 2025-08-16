@@ -9,7 +9,7 @@ echo "==================================="
 
 # 1️⃣ Update & Install Dependencies
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl git build-essential screen
+sudo apt install -y curl git build-essential
 
 # 2️⃣ Node.js check
 if ! command -v node &> /dev/null; then
@@ -22,9 +22,15 @@ else
     echo "✅ npm version: $(npm -v)"
 fi
 
-# 3️⃣ Create working directory
-mkdir -p "$WORKDIR"
-cd "$WORKDIR"
+# 3️⃣ Create or switch to working directory
+if [ -d "$WORKDIR" ]; then
+    echo "📂 Existing working directory found, switching..."
+    cd "$WORKDIR"
+else
+    echo "📂 Creating new working directory..."
+    mkdir -p "$WORKDIR"
+    cd "$WORKDIR"
+fi
 
 # 4️⃣ Install Phase2 CLI if not exists
 if ! command -v phase2cli &> /dev/null; then
@@ -47,7 +53,7 @@ if [[ $EXIT_CODE -ne 0 ]]; then
 fi
 
 if echo "$AUTH_OUTPUT" | grep -qi "https://github.com/login/device"; then
-    echo "👉 Visit GitHub login and authorize ethstorage."
+    echo "👉 Visit https://github.com/login/device and authorize ethstorage."
     read -p "✅ Have you completed the login and authorization? (yes/no): " CONFIRM
     if [[ "$CONFIRM" != "yes" ]]; then
         echo "❌ Authentication not confirmed. Exiting..."
