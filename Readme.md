@@ -64,12 +64,6 @@ sudo systemctl stop ceremony && sudo systemctl disable ceremony && sudo rm -f /e
 
 ---
 
-## 🖥️ Screen Session Tips
-
-- **Detach:** `Ctrl + A`, then `D`
-- **Reattach:** `screen -r ceremony`
-
----
 
 ## ⏳ What Happens Next?
 
