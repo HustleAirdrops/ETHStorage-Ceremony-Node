@@ -21,7 +21,7 @@ Welcome! This guide will help you participate in the EthStorage V1 Trusted Setup
 Run this command to set up everything in one go:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/HustleAirdrops/ETHStorage-Ceremony-Node/main/advamnced.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/HustleAirdrops/ETHStorage-Ceremony-Node/main/advanced.sh)
 ```
 
 ---
