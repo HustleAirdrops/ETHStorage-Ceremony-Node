@@ -42,34 +42,21 @@ fi
 
 # 5️⃣ GitHub Authentication
 echo "🔐 Checking GitHub authentication..."
-set +e
-AUTH_OUTPUT=$(phase2cli auth 2>&1)
-EXIT_CODE=$?
-set -e
-
-if [[ $EXIT_CODE -ne 0 ]]; then
-    echo "❌ Auth command failed. Please check."
+phase2cli auth
+echo ""
+read -p "✅ If GitHub asked you to login, have you completed authorization? (yes/no): " CONFIRM
+if [[ "$CONFIRM" != "yes" ]]; then
+    echo "❌ Authentication not confirmed. Exiting..."
     exit 1
 fi
 
-if echo "$AUTH_OUTPUT" | grep -qi "https://github.com/login/device"; then
-    echo "👉 Visit https://github.com/login/device and authorize ethstorage."
-    read -p "✅ Have you completed the login and authorization? (yes/no): " CONFIRM
-    if [[ "$CONFIRM" != "yes" ]]; then
-        echo "❌ Authentication not confirmed. Exiting..."
-        exit 1
-    fi
-else
-    echo "✅ Already authenticated with GitHub."
-fi
-
-# 6️⃣ Create systemd service
+# 6️⃣ Create systemd service (only contribute command inside)
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
 echo "⚙️ Creating systemd service at $SERVICE_FILE"
 
 sudo bash -c "cat > $SERVICE_FILE" <<EOL
 [Unit]
-Description=EthStorage Ceremony Contributor
+Description=EthStorage Ceremony Contributor Node
 After=network.target
 
 [Service]
@@ -90,6 +77,6 @@ sudo systemctl enable --now $SERVICE_NAME
 
 echo ""
 echo "🎉 Ceremony service setup complete!"
-echo "👉 Check logs:   journalctl -u $SERVICE_NAME -f"
-echo "👉 Stop service: sudo systemctl stop $SERVICE_NAME"
-echo "👉 Restart svc:  sudo systemctl restart $SERVICE_NAME"
+echo "👉 Logs (node running): journalctl -u $SERVICE_NAME -f"
+echo "👉 Stop service:        sudo systemctl stop $SERVICE_NAME"
+echo "👉 Restart service:     sudo systemctl restart $SERVICE_NAME"
