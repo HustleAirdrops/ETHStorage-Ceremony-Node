@@ -61,7 +61,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=$WORKDIR
-ExecStart=/usr/bin/env bash -c 'phase2cli contribute -c ethstorage-v1-trusted-setup-ceremony'
+ExecStart=/usr/bin/env bash -c 'yes "" | phase2cli contribute -c ethstorage-v1-trusted-setup-ceremony'
 Restart=always
 RestartSec=10
 User=$USER
